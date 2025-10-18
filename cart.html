@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Savatcha — AnorMarket</title>
+  <link rel="stylesheet" href="menyu.css" />
+  <link rel="icon" href="./img.ico">
+  <style>
+    .cart{max-width:960px;margin:24px auto;padding:0 16px}
+    .cart h2{margin:16px 0}
+    .cart-empty{color:#6a7c7e;margin:16px 0}
+    .line{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;border:1px solid #e7ecec;border-radius:12px;padding:10px 12px;margin:8px 0;background:#fff}
+    .total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-weight:800}
+    .danger{background:#e11d48;color:#fff;border:0;border-radius:10px;padding:8px 10px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <div class="alert">Buyurtma berishda muammo bo‘lsa, qo‘llab-quvvatlashga yozing.</div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="./index.html" aria-label="Bosh sahifa">
+        <span class="logo-dot">Anor</span><span class="logo-lx">market</span>
+      </a>
+      <nav class="nav">
+        <div id="authSection" class="auth">
+          <button id="loginBtn" class="btn ghost">Kirish</button>
+          <button id="registerBtn" class="btn primary">E’lon joylash</button>
+        </div>
+        <div id="profileSection" class="profile hidden">
+          <span id="greeting"></span>
+          <button id="logoutBtn" class="btn ghost">Chiqish</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cart">
+    <h2>Savatcha</h2>
+    <div id="items"></div>
+    <div class="total">
+      <span>Jami:</span> <span id="sum">0 so‘m</span>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <button class="btn dark" id="checkout">Buyurtma berish</button>
+      <button class="danger" id="clear">Tozalash</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    const itemsWrap = document.getElementById('items');
+    const sumEl = document.getElementById('sum');
+    function money(n){ return n.toLocaleString('uz-UZ') + ' so‘m'; }
+
+    function render(){
+      const cart = AM.getCart();
+      itemsWrap.innerHTML = '';
+      if(cart.length === 0){
+        itemsWrap.innerHTML = '<p class="cart-empty">Savatcha bo‘sh.</p>';
+      }else{
+        cart.forEach((it,idx)=>{
+          const line = document.createElement('div');
+          line.className = 'line';
+          line.innerHTML = `<div>${it.title||'Tovar'} </div>
+                            <div>${money(it.price||0)}</div>
+                            <button class="btn ghost" data-i="${idx}">O‘chirish</button>`;
+          itemsWrap.appendChild(line);
+        });
+      }
+      const total = AM.getCart().reduce((a,b)=> a + (b.price||0), 0);
+      sumEl.textContent = money(total);
+      AM.updateCartBadge();
+    }
+
+    itemsWrap.addEventListener('click', (e)=>{
+      const i = e.target.getAttribute('data-i');
+      if(i !== null){
+        AM.removeFromCart(+i);
+        render();
+      }
+    });
+    document.getElementById('clear').addEventListener('click', ()=>{ AM.clearCart(); render(); });
+    document.getElementById('checkout').addEventListener('click', ()=>{
+      if(AM.getCart().length === 0){ alert("Savatcha bo‘sh"); return; }
+      alert("Buyurtma qabul qilindi! (demo)");
+      AM.clearCart(); render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

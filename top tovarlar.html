@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Top tovarlar — AnorMarket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="./img.ico">
+  <style>
+    .header{position:sticky;top:0;z-index:10}
+    .chip{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;border-radius:999px;background:#f3f4f6;border:1px solid #e5e7eb;font-size:12px;font-weight:800;padding:0 6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">OZ</div>
+        <h1><a href="index.html" style="text-decoration:none;color:inherit">AnorMarket</a></h1>
+      </div>
+      <div class="controls">
+        <div class="search">
+          <input id="q" type="search" placeholder="Qidirish… (naushnik, printer)" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M10 18a8 8 0 1 1 5.293-14.293A8 8 0 0 1 10 18Zm12 2-5.4-5.4" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <button class="btn outline" id="resetBtn" type="button">Tozalash</button>
+        <button class="btn" id="openCart" type="button">Savatcha <span id="cartCount" class="chip">0</span></button>
+      </div>
+    </header>
+
+    <section class="grid" id="grid" aria-live="polite" aria-busy="false"></section>
+
+    <footer class="site">
+      © <span id="y"></span> AnorMarket
+    </footer>
+  </div>
+
+  <template id="card-tpl">
+    <article class="card" role="article">
+      <div class="media">
+        <span class="badge"></span>
+        <button class="heart" title="Sevimlilar">
+          <svg viewBox="0 0 24 24"><path d="M12 21s-6.716-4.418-9.193-8.03C1.03 10.725 1 8.19 2.828 6.364 4.657 4.536 7.192 4.51 8.97 6.29L12 9.318l3.03-3.029c1.778-1.78 4.314-1.754 6.142.072 1.828 1.828 1.8 4.363.022 6.18C18.716 16.582 12 21 12 21z"/></svg>
+        </button>
+        <img alt="Mahsulot rasmi" />
+      </div>
+      <div class="body">
+        <div class="row">
+          <div class="title"></div>
+          <span class="chip ship"></span>
+        </div>
+        <div class="meta"></div>
+        <div class="price">
+          <div class="new"></div>
+          <div class="old"></div>
+        </div>
+        <div class="row">
+          <div class="rating">
+            <div class="stars"></div>
+            <span class="score"></span>
+          </div>
+          <span class="chip stock"></span>
+        </div>
+      </div>
+      <div class="bottombar">
+        <button class="bbtn buy">Savatga qo‘shish</button>
+        <button class="bbtn gray date"></button>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+  <script>
+    const seed = [
+      {title:"HUAWEI FreeBuds 6i", meta:"Bluetooth 5.3 • ANC • 30 soat", price:657060, oldPrice:695000, discount:"-6%",
+        img:"https://images.unsplash.com/photo-1585386959984-a41552231656?q=80&w=1200&auto=format&fit=crop", rating:4.8, ship:"Ertaga", stock:"Yangi"},
+      {title:"Beats Studio3 Wireless", meta:"22 soat • ANC • W1", price:432400, oldPrice:499000, discount:"-13%",
+        img:"https://images.unsplash.com/photo-1518443800747-2b5d1d7f1825?q=80&w=1200&auto=format&fit=crop", rating:4.6, ship:"12-oktabr", stock:"Soni ko‘p"},
+      {title:"Apple AirPods Max", meta:"U1 chip • Lightning", price:5349000, oldPrice:5899000, discount:"-9%",
+        img:"https://images.unsplash.com/photo-1606229365485-93a3b6e7f2a0?q=80&w=1200&auto=format&fit=crop", rating:4.7, ship:"Ertaga", stock:"Premium"},
+      {title:"Canon Selphy Printer", meta:"18 ppm • Wi-Fi", price:2772500, oldPrice:2999000, discount:"-8%",
+        img:"https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1200&auto=format&fit=crop", rating:4.5, ship:"12-oktabr", stock:"Aksiyada"},
+      {title:"Gaming Headset H3", meta:"RGB • 7.1 • HD audio", price:196000, oldPrice:219000, discount:"-10%",
+        img:"https://images.unsplash.com/photo-1601933470095-38f8639d9966?q=80&w=1200&auto=format&fit=crop", rating:4.2, ship:"Ertaga", stock:"Bestseller"},
+      {title:"Mini-printer P2", meta:"Pocket • Bluetooth", price:97000, oldPrice:105000, discount:"-8%",
+        img:"https://images.unsplash.com/photo-1610394152779-085f4c7a090c?q=80&w=1200&auto=format&fit=crop", rating:4.0, ship:"12-oktabr", stock:"Tezkor"},
+      {title:"Pods Pro (2024)", meta:"IPX4 • BT 5.3 • ANC", price:265600, oldPrice:299000, discount:"-11%",
+        img:"https://images.unsplash.com/photo-1590658006821-04e6c2b9c2b1?q=80&w=1200&auto=format&fit=crop", rating:4.7, ship:"Ertaga", stock:"Yangi"},
+      {title:"Smart Watch X5", meta:"SpO2 • IP68 • 10 kun", price:343100, oldPrice:399000, discount:"-14%",
+        img:"https://images.unsplash.com/photo-1518081461904-9ac2de15f59c?q=80&w=1200&auto=format&fit=crop", rating:4.3, ship:"12-oktabr", stock:"Trend"}
+    ];
+
+    const products = Array.from({length:36}, (_,i)=>{
+      const p = JSON.parse(JSON.stringify(seed[i % seed.length]));
+      p.price = Math.round(p.price * (0.95 + Math.random()*0.2));
+      p.oldPrice = Math.round(p.price * (1.06 + Math.random()*0.2));
+      p.rating = +(Math.min(4.9, Math.max(3.8, p.rating + (Math.random()-.5))).toFixed(1));
+      p.ship = (i % 3 === 0) ? "Ertaga" : (i % 3 === 1 ? "12-oktabr" : "Bugun");
+      p.stock = (i % 4 === 0) ? "Aksiyada" : (i % 4 === 1 ? "Soni ko‘p" : (i % 4 === 2 ? "Bestseller" : "Tezkor"));
+      const d = [ "-5%", "-8%", "-10%", "-12%" ];
+      p.discount = d[i % d.length];
+      return p;
+    });
+
+    const grid = document.getElementById('grid');
+    const tpl = document.getElementById('card-tpl');
+
+    function money(n){ return n.toLocaleString('uz-UZ'); }
+
+    function starSVG(fill){
+      const color = fill ? '#f59e0b' : '#e5e7eb';
+      return `<svg viewBox="0 0 24 24"><path fill="${color}" d="m12 17.27 6.18 3.73-1.64-7.03L21 9.24l-7.19-.62L12 2 10.19 8.62 3 9.24l4.46 4.73L5.82 21z"/></svg>`;
+    }
+
+    function render(list){
+      grid.innerHTML = '';
+      list.forEach(p=>{
+        const node = tpl.content.cloneNode(true);
+        node.querySelector('.badge').textContent = p.discount || '';
+        node.querySelector('img').src = p.img;
+        node.querySelector('img').alt = p.title + ' — rasm';
+        node.querySelector('.title').textContent = p.title;
+        node.querySelector('.meta').textContent = p.meta;
+        node.querySelector('.new').textContent = money(p.price) + ' so‘m';
+        node.querySelector('.old').textContent = p.oldPrice ? money(p.oldPrice) + ' so‘m' : '';
+        node.querySelector('.ship').textContent = p.ship;
+        node.querySelector('.stock').textContent = p.stock;
+        node.querySelector('.date').textContent = p.ship;
+        node.querySelector('.buy').addEventListener('click', ()=> AM.addToCart({title:p.title, price:p.price}));
+        const rating = node.querySelector('.stars');
+        const full = Math.floor(p.rating);
+        const half = p.rating - full >= 0.5;
+        rating.innerHTML = Array.from({length:5}).map((_,i)=> i<full ? starSVG(true) : (i===full && half ? starSVG(true): starSVG(false))).join('');
+        node.querySelector('.score').textContent = p.rating.toFixed(1);
+        grid.appendChild(node);
+      });
+      AM.updateCartBadge();
+    }
+
+    // Qidiruv
+    const q = document.getElementById('q');
+    const resetBtn = document.getElementById('resetBtn');
+    function applyFilter(){
+      const term = q.value.trim().toLowerCase();
+      if(!term){ render(products); return; }
+      const filtered = products.filter(p => (p.title.toLowerCase().includes(term) || (p.meta||'').toLowerCase().includes(term)));
+      render(filtered);
+    }
+    q.addEventListener('input', applyFilter);
+    resetBtn.addEventListener('click', ()=>{ q.value=''; render(products); });
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // init
+    render(products);
+  </script>
+</body>
+</html>

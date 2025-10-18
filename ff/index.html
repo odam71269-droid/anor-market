@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AnorMarket — Gadjetlar va elektronika</title>
+  <meta name="description" content="AnorMarket — istalgan gadjetni arzon narxda xarid qiling. Tez yetkazib berish, qulay to‘lov, ishonchli sotuvchilar." />
+  <link rel="stylesheet" href="menyu.css"/>
+  <link rel="icon" href="./img.ico">
+  <style>
+    .loadbar{display:flex;justify-content:center;margin:12px 0}
+    .btn.dark{background:#111827;color:#fff;border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .btn.dark:disabled{opacity:.6;cursor:not-allowed}
+    .section-title{display:flex;align-items:center;gap:10px}
+    .section-title .chip{background:#eef2ff;border:1px solid #e5e7eb;color:#1f2937;border-radius:999px;font-size:12px;font-weight:800;padding:4px 8px}
+    .ad-card .bwrap{display:flex;gap:8px;margin-top:8px}
+    .ad-card .bwrap .btn{flex:1}
+  </style>
+</head>
+<body>
+  <div class="alert">Xizmatda ayrim to‘lovlarda texnik nosozliklar bartaraf etilmoqda. Noqulayliklar uchun uzr so‘raymiz.</div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="./index.html" aria-label="AnorMarket bosh sahifa">
+        <span class="logo-dot">Anor</span><span class="logo-lx">market</span>
+      </a>
+
+      <nav class="nav">
+        <button id="openCart" class="icon-btn" title="Savatcha" aria-label="Savatcha">
+          🧺 <span id="cartCount" class="chip" style="margin-left:6px">0</span>
+        </button>
+        <button id="openFav" class="icon-btn" title="Sevimlilar">♡</button>
+        <button id="openNoti" class="icon-btn" title="Bildirishnomalar">🔔</button>
+
+        <div id="authSection" class="auth">
+          <button id="loginBtn" class="btn ghost">Kirish</button>
+          <button id="registerBtn" class="btn primary">E’lon joylash</button>
+        </div>
+
+        <div id="profileSection" class="profile hidden">
+          <span id="greeting"></span>
+          <button id="logoutBtn" class="btn ghost">Chiqish</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="padding:28px 0 0">
+    <section class="search">
+      <div class="container search-bar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔎</span>
+          <input id="q" type="text" placeholder="Qaysi mahsulot kerak?" />
+        </div>
+        <div class="country-select">
+          <span class="pin">📍</span>
+          <button class="country-btn" id="countryBtn" type="button">Butun O‘zbekiston</button>
+        </div>
+        <button class="btn dark" id="searchBtn" type="button">Qidirish</button>
+      </div>
+    </section>
+
+    <section class="container" style="padding:24px 0 8px">
+      <h2 class="section-title">Kategoriyalar</h2>
+      <div class="cats-grid">
+        <a class="cat" href="#"><span class="bubble mint"></span><span>Elektronika</span></a>
+        <a class="cat" href="#"><span class="bubble blue"></span><span>Maishiy texnika</span></a>
+        <a class="cat" href="#"><span class="bubble lilac"></span><span>Kompyuterlar</span></a>
+        <a class="cat" href="#"><span class="bubble ice"></span><span>Telefonlar</span></a>
+        <a class="cat" href="#"><span class="bubble peach"></span><span>Aksessuarlar</span></a>
+        <a class="cat" href="#"><span class="bubble sand"></span><span>Uy va bog‘</span></a>
+      </div>
+    </section>
+
+    <section class="vip">
+      <div class="container">
+        <h3 class="vip-title">Tavsiya etilgan tovarlar</h3>
+        <div class="listings-grid" id="vipGrid"></div>
+      </div>
+    </section>
+
+    <section class="container" style="padding:16px 0 28px">
+      <h2 class="section-title">Barchasi <span class="chip" id="countChip">0</span></h2>
+      <div class="listings-grid" id="homeGrid" aria-live="polite"></div>
+      <div class="loadbar">
+        <button id="loadMore" class="btn dark">Yana ko‘rsatish</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="authModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" data-close aria-label="Yopish">&times;</button>
+      <div class="tabs">
+        <button id="tabLogin" class="tab active">Kirish</button>
+        <button id="tabRegister" class="tab">Ro‘yxatdan o‘tish</button>
+      </div>
+
+      <form id="loginForm" class="form">
+        <h3 id="authTitle">Akkauntga kirish</h3>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Parol
+          <input type="password" name="password" required />
+        </label>
+        <button class="btn dark" type="submit">Kirish</button>
+        <p class="hint">Yangi foydalanuvchimisiz? <a href="#" id="goRegister" onclick="document.querySelector('#tabRegister').click();return false;">Ro‘yxatdan o‘tish</a></p>
+      </form>
+
+      <form id="registerForm" class="form hidden">
+        <h3>Yangi akkaunt</h3>
+        <label>Ism
+          <input type="text" name="name" required />
+        </label>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Parol
+          <input type="password" name="password" minlength="6" required />
+        </label>
+        <button class="btn dark" type="submit">Ro‘yxatdan o‘tish</button>
+        <p class="hint">Allaqachon akkauntingiz bormi? <a href="#" id="goLogin" onclick="document.querySelector('#tabLogin').click();return false;">Kirish</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // --- VIP (qisqa ro'yxat)
+    const vip = [
+      {title:"FreeBuds 6i", price:"657 060 so‘m", city:"Toshkent · bugun 10:32", img:"https://images.unsplash.com/photo-1585386959984-a41552231656?q=80&w=1200&auto=format&fit=crop"},
+      {title:"Canon Selphy Printer", price:"2 772 500 so‘m", city:"Samarqand · kecha", img:"https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1200&auto=format&fit=crop"},
+      {title:"Smart Watch X5", price:"343 100 so‘m", city:"Farg‘ona · 2 soat avval", img:"https://images.unsplash.com/photo-1518081461904-9ac2de15f59c?q=80&w=1200&auto=format&fit=crop"},
+      {title:"AirPods Max", price:"5 349 000 so‘m", city:"Andijon · bugun 12:10", img:"https://images.unsplash.com/photo-1606229365485-93a3b6e7f2a0?q=80&w=1200&auto=format&fit=crop"}
+    ];
+    const vipGrid = document.getElementById("vipGrid");
+    vip.forEach(v => {
+      const art = document.createElement("article");
+      art.className = "ad-card";
+      art.innerHTML = `
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="${v.img}" alt="${v.title} rasmi" loading="lazy" />
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">${v.title}</a>
+          <div class="ad-price">${v.price}</div>
+          <div class="ad-meta">${v.city}</div>
+        </div>`;
+      vipGrid.appendChild(art);
+    });
+
+    // --- Katta ro'yxat (100+ mahsulot)
+    const seed = [
+      {title:"HUAWEI FreeBuds 6i", img:"https://images.unsplash.com/photo-1585386959984-a41552231656?q=80&w=1200&auto=format&fit=crop", base:657060},
+      {title:"Beats Studio3 Wireless", img:"https://images.unsplash.com/photo-1518443800747-2b5d1d7f1825?q=80&w=1200&auto=format&fit=crop", base:432400},
+      {title:"Apple AirPods Max", img:"https://images.unsplash.com/photo-1606229365485-93a3b6e7f2a0?q=80&w=1200&auto=format&fit=crop", base:5349000},
+      {title:"Canon Selphy Printer", img:"https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1200&auto=format&fit=crop", base:2772500},
+      {title:"Gaming Headset H3", img:"https://images.unsplash.com/photo-1601933470095-38f8639d9966?q=80&w=1200&auto=format&fit=crop", base:196000},
+      {title:"Mini-printer P2", img:"https://images.unsplash.com/photo-1610394152779-085f4c7a090c?q=80&w=1200&auto=format&fit=crop", base:97000},
+      {title:"Pods Pro (2024)", img:"https://images.unsplash.com/photo-1590658006821-04e6c2b9c2b1?q=80&w=1200&auto=format&fit=crop", base:265600},
+      {title:"Smart Watch X5", img:"https://images.unsplash.com/photo-1518081461904-9ac2de15f59c?q=80&w=1200&auto=format&fit=crop", base:343100},
+      {title:"Bluetooth Kolonka S2", img:"https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=1200&auto=format&fit=crop", base:188000},
+      {title:"Mechanical Keyboard K84", img:"https://images.unsplash.com/photo-1519241047957-be31d7379a5d?q=80&w=1200&auto=format&fit=crop", base:289000},
+      {title:"4K Monitor 27\"", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop", base:3899000},
+      {title:"Web-kamera HD Pro", img:"https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop", base:219000}
+    ];
+
+    const cities = ["Toshkent","Samarqand","Farg‘ona","Andijon","Nukus","Jizzax","Termiz","Buxoro"];
+    function rand(a,b){ return Math.floor(a + Math.random()*(b-a+1)); }
+    function money(n){ return n.toLocaleString('uz-UZ'); }
+    function metaCity(){ const c = cities[rand(0,cities.length-1)]; const t = ["bugun","kecha","2 soat avval","1 soat avval","3 kun avval"][rand(0,4)]; return `${c} · ${t}`; }
+
+    // 132 ta mahsulot hosil qilamiz
+    const allProducts = Array.from({length:132}, (_,i)=>{
+      const s = seed[i % seed.length];
+      const price = Math.round(s.base * (0.9 + Math.random()*0.25));
+      return { title: s.title + " #" + (i+1), img: s.img, price, meta: metaCity() };
+    });
+
+    const homeGrid = document.getElementById("homeGrid");
+    const countChip = document.getElementById("countChip");
+    const loadMoreBtn = document.getElementById("loadMore");
+    const searchBtn = document.getElementById("searchBtn");
+    const q = document.getElementById("q");
+
+    let viewList = allProducts.slice(); // filtrlash uchun
+    let page = 0;
+    const perPage = 24;
+
+    function renderBatch(reset=false){
+      if(reset){ homeGrid.innerHTML = ""; page = 0; }
+      const start = page * perPage;
+      const slice = viewList.slice(start, start + perPage);
+      slice.forEach(p => {
+        const art = document.createElement("article");
+        art.className = "ad-card";
+        art.innerHTML = `
+          <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+          <a href="top tovarlar.html" class="ad-thumb">
+            <img src="${p.img}" alt="${p.title} rasmi" loading="lazy" />
+          </a>
+          <div class="ad-body">
+            <a href="top tovarlar.html" class="ad-title">${p.title}</a>
+            <div class="ad-price">${money(p.price)} so‘m</div>
+            <div class="ad-meta">${p.meta}</div>
+            <div class="bwrap">
+              <button class="btn primary" type="button">Batafsil</button>
+              <button class="btn ghost add-to-cart" type="button">Savatga</button>
+            </div>
+          </div>`;
+        art.querySelector(".add-to-cart").addEventListener("click", ()=> AM.addToCart({title:p.title, price:p.price}));
+        homeGrid.appendChild(art);
+      });
+      page++;
+      countChip.textContent = viewList.length;
+      if(page*perPage >= viewList.length){ loadMoreBtn.disabled = true; loadMoreBtn.textContent = "Hammasi ko‘rsatildi"; }
+      else { loadMoreBtn.disabled = false; loadMoreBtn.textContent = "Yana ko‘rsatish"; }
+      AM.updateCartBadge();
+    }
+
+    // Qidirish: input bilan tez filtrlash, tugma bilan katalog sahifasiga o'tish
+    q.addEventListener("input", ()=>{
+      const term = q.value.trim().toLowerCase();
+      viewList = allProducts.filter(p => p.title.toLowerCase().includes(term));
+      renderBatch(true);
+    });
+    searchBtn.addEventListener("click", ()=>{ window.location.href = "top tovarlar.html"; });
+
+    loadMoreBtn.addEventListener("click", ()=> renderBatch(false));
+
+    // Dastlabki yuklash
+    renderBatch(true);
+  </script>
+</body>
+</html>

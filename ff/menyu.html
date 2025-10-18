@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AnorMarket</title>
+  <link rel="stylesheet" href="./menyu.css" />
+  <link rel="icon" href="./img.ico">
+</head>
+<body>
+  <div class="alert">Xizmatda ayrim to‘lovlarda texnik nosozliklar bartaraf etilmoqda. Uzr so‘raymiz!</div>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="./index.html" aria-label="Bosh sahifa">
+        <span class="logo-dot">Anor</span><span class="logo-lx">market</span>
+      </a>
+
+      <nav class="nav">
+        <button id="openCart" class="icon-btn" title="Savatcha">🧺 <span id="cartCount" class="chip" style="margin-left:6px">0</span></button>
+        <button id="openFav" class="icon-btn" title="Sevimlilar">♡</button>
+        <button id="openNoti" class="icon-btn" title="Bildirishnomalar">🔔</button>
+
+        <div id="authSection" class="auth">
+          <button id="loginBtn" class="btn ghost">Kirish</button>
+          <button id="registerBtn" class="btn primary">E’lon joylash</button>
+        </div>
+
+        <div id="profileSection" class="profile hidden">
+          <span id="greeting"></span>
+          <button id="logoutBtn" class="btn ghost">Chiqish</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <section class="search">
+    <div class="container search-bar">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔎</span>
+        <input id="q" type="text" placeholder="Nima qidiryapsiz?" />
+      </div>
+
+      <div class="country-select">
+        <span class="pin">📍</span>
+        <button class="country-btn" id="countryBtn" type="button">Butun O‘zbekiston</button>
+      </div>
+
+      <button class="btn dark" id="searchBtn" type="button" onclick="window.location.href='top tovarlar.html'">Qidirish</button>
+    </div>
+  </section>
+
+
+  <main class="container">
+    <h2 class="section-title">AnorMarket</h2>
+
+    <div class="cats-grid">
+      <a class="cat" href="#"><span class="bubble yellow"></span><span>Bolalar dunyosi</span></a>
+      <a class="cat" href="#"><span class="bubble blue"></span><span>Ko‘chmas mulk</span></a>
+      <a class="cat" href="#"><span class="bubble teal"></span><span>Transport</span></a>
+      <a class="cat" href="#"><span class="bubble tomato"></span><span>Ish</span></a>
+      <a class="cat" href="#"><span class="bubble sand"></span><span>Hayvonlar</span></a>
+      <a class="cat" href="#"><span class="bubble ice"></span><span>Uy va bog‘</span></a>
+      <a class="cat" href="#"><span class="bubble mint"></span><span>Elektronika</span></a>
+      <a class="cat" href="#"><span class="bubble peach"></span><span>Biznes va xizmatlar</span></a>
+      <a class="cat" href="#"><span class="bubble gold"></span><span>Moda va uslub</span></a>
+      <a class="cat" href="#"><span class="bubble lilac"></span><span>Xobbi, dam va sport</span></a>
+      <a class="cat" href="#"><span class="bubble aqua"></span><span>Tekinga beraman</span></a>
+      <a class="cat" href="#"><span class="bubble rose"></span><span>Almashuv</span></a>
+      <a class="cat" href="#"><span class="bubble pale"></span><span>Quruvchi tomonidan</span></a>
+      <a class="cat" href="#"><span class="bubble cobalt"></span><span>Bepul daromad</span></a>
+    </div>
+  </main>
+
+<section class="vip">
+  <div class="container">
+    <h3 class="vip-title">VIP e’lonlar</h3>
+
+    <div class="listings-grid">
+      <!-- 1 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=9d27b1adb3bf25900848aeeb7d5d93f1-4336910-images-thumbs&n=13" alt="Kir yuvish mashinasi">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Kir yuvish mashinasi, kafolat</a>
+          <div class="ad-price">1 777 500 so‘m</div>
+          <div class="ad-meta">Toshkent · bugun 10:32</div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://st34.stpulscen.ru/images/product/462/373/488_big.jpg" alt="Gips bloklar">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Gips bloklar, yetkazib berish</a>
+          <div class="ad-price">66 000 so‘m</div>
+          <div class="ad-meta">Chirchiq · kecha 19:20</div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=9f9ec9f9a80b9c0cf6d8c9aba51a51d1d9faeb76-6209458-images-thumbs&n=13" alt="Rulonli pardalar">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Rulonli pardalar — yangi</a>
+          <div class="ad-price">98 000 so‘m</div>
+          <div class="ad-meta">Samarqand · bugun 09:15</div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/get-mpic/5283122/2a00000190c8d070c21b0662cb26ca790680/orig" alt="Avtomoyka nano">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Avtomoyka Nano, to‘plam</a>
+          <div class="ad-price">562 000 so‘m</div>
+          <div class="ad-meta">Nukus · 2 soat avval</div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://api.idea.uz/storage/products/July2024/UibOyexFCNKYa1u3zTtj.png" alt="Akustik tizim">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Akustik tizim X-one</a>
+          <div class="ad-price">862 000 so‘m</div>
+          <div class="ad-meta">Toshkent · bugun 12:10</div>
+        </div>
+      </article>
+
+      <!-- 6 - fixed bad URL 'hhttps' -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://api.idea.uz/storage/products/February2025/4o63X9yufcuS2NDzB4eg.png" alt="Kassalik printerni to‘plami">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Kassalik/chek printeri</a>
+          <div class="ad-price">1 165 000 so‘m</div>
+          <div class="ad-meta">Andijon · kecha 17:41</div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=dac3405daee3b2fb2d340c95ae266d37d569a1a9-5233069-images-thumbs&n=13" alt="Smart rozetka">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Smart-rozetka, sensorli</a>
+          <div class="ad-price">135 000 so‘m</div>
+          <div class="ad-meta">Jizzax · 3 soat avval</div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://i.pinimg.com/736x/10/4c/8f/104c8f3442f0c9585462ab57bd60e79c.jpg" alt="Basseyn setkasi">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Basseyn uchun setkalar</a>
+          <div class="ad-price">620 000 so‘m</div>
+          <div class="ad-meta">Farg‘ona · bugun 08:05</div>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=082616146b4213bad61f6df3e96677a92231f3bc-5513755-images-thumbs&n=13" alt="Shahar ryukzaki">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Shahar ryukzaki, charm</a>
+          <div class="ad-price">409 000 so‘m</div>
+          <div class="ad-meta">Termiz · 1 soat avval</div>
+        </div>
+      </article>
+
+      <!-- 10 - replace totally broken URL with a stable image -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://images.unsplash.com/photo-1519183071298-a2962be96f83?q=80&w=1200&auto=format&fit=crop" alt="Kuzatuv kameralar to‘plami">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Kuzatuv kameralar to‘plami</a>
+          <div class="ad-price">2 190 000 so‘m</div>
+          <div class="ad-meta">Toshkent · kecha 11:02</div>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=340aaf409165b3f6cff06d7cf444d5d6fa2a4ff0-11521919-images-thumbs&n=13" alt="Maishiy texnika">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Maishiy texnika, mikslangan</a>
+          <div class="ad-price">99 000 so‘m</div>
+          <div class="ad-meta">Qo‘qon · bugun 12:55</div>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="ad-card">
+        <button class="fav-btn" aria-label="Sevimlilarga qo‘shish">♡</button>
+        <a href="top tovarlar.html" class="ad-thumb">
+          <img src="https://avatars.mds.yandex.net/i?id=bfc53686f06a1f54f6408044b004796aec221e20-5654014-images-thumbs&n=13" alt="Zinalar perillari">
+        </a>
+        <div class="ad-body">
+          <a href="top tovarlar.html" class="ad-title">Zina perillari, zanglamaydigan</a>
+          <div class="ad-price">Kelishiladi</div>
+          <div class="ad-meta">Navoiy · 3 kun avval</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+  <!-- Auth modal -->
+  <div id="authModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <button class="modal-close" data-close aria-label="Yopish">&times;</button>
+
+      <div class="tabs">
+        <button id="tabLogin" class="tab active">Kirish</button>
+        <button id="tabRegister" class="tab">Ro‘yxatdan o‘tish</button>
+      </div>
+
+      <form id="loginForm" class="form">
+        <h3 id="authTitle">Akkauntga kirish</h3>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Parol
+          <input type="password" name="password" required />
+        </label>
+        <button class="btn dark" type="submit">Kirish</button>
+        <p class="hint">Akkaunt yo‘qmi? <a href="#" id="goRegister" onclick="document.querySelector('#tabRegister').click();return false;">Ro‘yxatdan o‘tish</a></p>
+      </form>
+
+      <form id="registerForm" class="form hidden">
+        <h3>Akkaunt yaratish</h3>
+        <label>Ism
+          <input type="text" name="name" required />
+        </label>
+        <label>Email
+          <input type="email" name="email" required />
+        </label>
+        <label>Parol
+          <input type="password" name="password" minlength="6" required />
+        </label>
+        <button class="btn dark" type="submit">Ro‘yxatdan o‘tish</button>
+        <p class="hint">Allaqachon akkaunt bormi? <a href="#" id="goLogin" onclick="document.querySelector('#tabLogin').click();return false;">Kirish</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
